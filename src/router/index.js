@@ -3,10 +3,9 @@ import axios from 'axios';
 import Router from 'vue-router'
 import moment from 'moment';
 import helper from '@/components/Helper';
-import words from '@/components/Words'
-import JetsBooking from '@/components/JetsBooking'
-import Flights from '@/components/Flights'
+import TurnosKlasse from '@/components/TurnosKlasse'
 import Terms from '@/components/Terms'
+import Dealers from '@/components/Dealers'
 import Privacy from '@/components/Privacy'
 import Offers from '@/components/Offers'
 import Contact from '@/components/Contact'
@@ -34,13 +33,13 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'JetsBooking',
-      component: JetsBooking
+      name: 'TurnosKlasse',
+      component: TurnosKlasse
     },
     {
-      path: '/flights',
-      name: 'Flights',
-      component: Flights
+      path: '/delaers',
+      name: 'Dealers',
+      component: Dealers
     },
     {
       path: '/terms',
@@ -164,9 +163,9 @@ window.onerror = function(msg, url, line, col, error) {
 
 function preload(language){
   localStorage.setItem('language',language);
-  return axios.get(helper.callApi('apiurl') + 'storage-' + language +'.json').then((res) => {
+  return axios.get(helper.callApi('apiurl') + 'storage.json').then((res) => {
     res.data.lastUpdate = moment().utc().format();
-    localStorage.setItem('storage-'+language,JSON.stringify(res.data));
+    localStorage.setItem('storage',JSON.stringify(res.data));
     return res.data;
   });
 }
@@ -174,7 +173,7 @@ function preload(language){
 router.beforeEach((to, from, next) => {
   var storedLanguage = localStorage.getItem('language') || navigator.language || navigator.userLanguage; 
   var language = storedLanguage.split('-')[0];
-  var storage = localStorage.getItem('storage-'+language);
+  var storage = localStorage.getItem('storage');
   var fresh = false;
   var diff = -1;
   if(storage){
@@ -211,7 +210,6 @@ router.afterEach(function (to, from, next) {
 
   document.querySelector('html').classList = [];
   document.querySelector('html').classList.add(to.name);
-  words.translateAll();
 });
 
 export default router;

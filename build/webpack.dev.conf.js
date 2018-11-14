@@ -55,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      apiurl:'http://localhost:8080/static/dummy/',
+      apiurl:'/static/dummy/',
       inject: true
     })
   ]

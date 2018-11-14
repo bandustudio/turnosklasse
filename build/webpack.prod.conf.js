@@ -73,7 +73,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
-      apiurl:'https://jetsbooking.herokuapp.com/static/dummy/',
+      apiurl:'/static/dummy/',
       inject: true,
       minify: {
         removeComments: true,

@@ -2,83 +2,21 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container">
+
         <article v-if="announcement" :class="'message ' + announcement.type">
           <div class="message-body">
             <span v-html="announcement.message"></span>
           </div>
         </article>        
 
-        <article v-if="purchase.departure.departure" class="message is-success">
-          <div class="message-body has-text-left">
-            <div class="">
-              <h3 jsb-word="flights-uncomplete-process-text"><strong>{{ 'flights-uncomplete-process-text' | translate }}</strong></h3>
-            </div>
-            <div class="columns is-mobile">
-              <div class="column is-9">
-                <div class="columns">
-                  <div class="column is-6">
-                    <!--span class="has-text-warning" v-html="index"></span-->
-                    <span class="has-text-black" v-html="calcFlightTime(purchase.departure.departure_date)"></span> -
-                    <span class="has-text-black" v-html="calcFlightTime(purchase.departure.arrival_date)"></span><br>
-                    <div class="columns is-mobile">
-                      <div class="column is-4 operator-logo">
-                        <img v-if="purchase.departure.operator" :src="purchase.departure.operator.logo" />
-                      </div>
-                      <div class="column">
-                        <p>
-                          <span v-if="purchase.departure.operator" class="has-text-black" v-html="purchase.departure.operator.company_name"></span><br>
-                          <span v-if="purchase.departure.aircraft" class="has-text-black" v-html="purchase.departure.aircraft.brand"></span> 
-                          <span v-if="purchase.departure.aircraft" class="has-text-black" v-html="purchase.departure.aircraft.model"></span> 
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="column is-6">
-                    <span class="has-text-black" jsb-word="flights-duration">{{ 'flights-duration' | translate }}</span>: 
-                    <span class="has-text-black" v-html="calcFlightDuration(purchase.departure.departure_date,purchase.departure.arrival_date)"></span>
-                    <span v-if="purchase.departure.stops && purchase.departure.stops.length">
-                      <span v-html="purchase.departure.stops.length" class="has-text-info"></span>
-                      <span v-if="purchase.departure.stops.length === 1" v-html="$options.filters.translate('flights-stop')" class="has-text-info"></span>
-                      <span v-else v-html="$options.filters.translate('flights-stops')" class="has-text-info"></span>
-                    </span>
-                    <span v-else>
-                      <span v-html="$options.filters.translate('flights-no-stops')" class="has-text-success"></span>
-                    </span><br>
-                    <p>
-                      <span v-if="purchase.departure.airport" class="has-text-grey" v-html="purchase.departure.airport.code"></span> - 
-                      <span v-if="purchase.departure.arrival" class="has-text-grey" v-html="purchase.departure.arrival.airport.code"></span> 
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="column has-text-right">
-                <span>
-                  <span v-html="purchase.departure.departure_date"></span>
-                </span><br>
-              
-                <span><img src="/static/img/category_icon.svg" width="20"></span>
-                <span>
-                  <span class="is-size-6" v-html="purchase.departure.currency"></span> 
-                  <span class="is-size-6" v-html="purchase.departure.price"></span> 
-                </span><br>
-                <span class="" jsb-word="flights-price-per-seat">{{ 'flights-price-per-seat' | translate }}</span>
-              </div>
-            </div>
-            <div class="field has-text-right">
-              <a href="#" class="has-text-success" @click="resumeFlight" jsb-word="flights-uncomplete-process-resume"><strong>{{ 'flights-uncomplete-process-resume' | translate }}</strong></a>
-              <a href="#" class="has-text-danger" @click="deleteFlight" jsb-word="flights-uncomplete-process-delete"><strong>{{ 'flights-uncomplete-process-delete' | translate }}</strong></a>            
-            </div>
-          </div>
-        </article>    
-
         <div class="columns is-fullhd">
           <div class="column is-9">
             <div class="app__search revealer has-text-left" :class="{ 'apply' : !loading }">
-              <h2 class="has-text-white" jsb-word="search"></h2>
+              <h2 class="has-text-white">Seleccioná tu vehículo</h2>
               <div class="columns flight-type">
                 <div class="column">
-                  <div class="button is-large" flight-type="roundtrip" :class="{ 'is-white' : search['flight-type'] != 'roundtrip' }" jsb-word="search-roundtrip" @click="setFlightType"></div>
-                  <div class="button is-large" flight-type="oneway" :class="{ 'is-white' : search['flight-type'] != 'oneway' }" jsb-word="search-oneway" @click="setFlightType"></div>
+                  <div class="button is-large" flight-type="roundtrip" :class="{ 'is-white' : search['flight-type'] != 'roundtrip' }" @click="setFlightType">Autos</div>
+                  <div class="button is-large" flight-type="oneway" :class="{ 'is-white' : search['flight-type'] != 'oneway' }" @click="setFlightType">Vans</div>
                 </div>
               </div>
               <div class="columns airports">
@@ -88,16 +26,16 @@
                       <img src="/static/img/plane_icon.svg">
                     </span>
                     <ul class="is-pulled-left has-text-left">
-                    <li><span jsb-word="search-origin">{{ 'search-origin' | translate }}</span></li>
+                    <li><span>Automóviles</span></li>
                     <li>
                       <span v-if="search.departure" class="has-text-info" v-html="search.departure"></span>
                       <!--span v-else class="has-text-grey"></span-->
                     </li>
                     </ul>
                   </div>
-                  <v-select ref="departure" v-model="search.departure" maxHeight="inherit" :placeholder="$options.filters.translate('search-origin-placeholder')" :selected="search.departure" :filterable="false" :options="$root.departures" @search="$root.searchDeparture" @input="setDeparture">
-                    <template slot="no-options" jsb-word="search-origin-placeholder">
-                      {{ 'search-origin-placeholder' | translate }}
+                  <v-select ref="departure" v-model="search.departure" maxHeight="inherit" placeholder="Elija" :selected="search.departure" :filterable="false" :options="$root.departures" @search="$root.searchDeparture" @input="setDeparture">
+                    <template slot="no-options">
+                      Elija modelo
                     </template>                
                     <template slot="option" slot-scope="option">
                       <div class="d-center">
@@ -118,16 +56,16 @@
                       <img src="/static/img/plane_icon.svg">
                     </span>
                     <ul class="is-pulled-left has-text-left">
-                    <li><span jsb-word="search-destination"></span></li>
+                    <li><span>Sucursales</span></li>
                     <li>
                       <span v-if="search.arrival" class="has-text-info" v-html="search.arrival"></span>
                       <!--span v-else class="has-text-grey" jsb-word="search-origin-placeholder"></span-->
                     </li>
                     </ul>
                   </div>
-                  <v-select ref="arrival" v-model="search.arrival" maxHeight="inherit" :placeholder="$options.filters.translate('search-origin-placeholder')" :filterable="false" :options="$root.arrivals" @search="$root.searchArrival" @input="setReturn">
+                  <v-select ref="arrival" v-model="search.arrival" maxHeight="inherit" placeholder="Elija 2" :filterable="false" :options="$root.arrivals" @search="$root.searchArrival" @input="setReturn">
                     <template slot="no-options" jsb-word="search-origin-placeholder">
-                      {{ 'search-origin-placeholder' | translate }}
+                      {{ 'search-origin-placeholder' }}
                     </template>                
                     <template slot="option" slot-scope="option">
                       <div class="d-center">
@@ -198,7 +136,7 @@
                       <span jsb-word="search-category"></span>
                     </li>
                     <li>
-                      <span v-if="search.category" class="has-text-info" v-html="this.$options.filters.translate(search.category)"></span>
+                      <span v-if="search.category" class="has-text-info" v-html="search.category"></span>
                       <span v-else class="has-text-grey" jsb-word="search-category-placeholder"></span>
                     </li>
                     </ul>
@@ -208,7 +146,7 @@
                     </template>                
                     <template slot="option" slot-scope="option">
                       <div class="d-center">
-                        <strong>{{ option.label | translate }}</strong>
+                        <strong>{{ option.label }}</strong>
                       </div>
                     </template>
                     <template slot="selected-option" scope="option">
@@ -221,7 +159,7 @@
               </div>
               <div class="columns">
                 <div class="column has-text-left">
-                  <button class="button is-expanded" jsb-word="search-button" @click="submit" :disabled="!canShowResults"></button>
+                  <button class="button is-expanded" @click="submit" :disabled="!canShowResults">Solicitar turno</button>
                   </router-link>
                 </div>
               </div>            
@@ -237,7 +175,7 @@
       <div class="container offers">
         <div class="columns">
           <div class="column has-text-left">
-            <h1 class="has-text-info" jsb-word="dayly-offers">{{ 'dayly-offers' | translate }}</h1>
+            <h1 class="has-text-info" jsb-word="dayly-offers">{{ 'dayly-offers' }}</h1>
           </div>
         </div>
         <div class="columns is-multiline">
@@ -262,12 +200,11 @@ import axios from 'axios';
 import moment from 'moment';
 import qs from 'qs';
 import _ from 'lodash';
-import words from '@/components/Words';
 import helper from '@/components/Helper';
 import { snackbar } from '@/components/Snackbar';
 
 export default {
-  name: 'JetsBooking',
+  name: 'TurnosKlasse',
   data () {
     return {
       time: new Date(),
@@ -313,30 +250,15 @@ export default {
   },  
   mounted: function(){
     var self = this;
-    var language = localStorage.getItem('language');
-    var purchase = JSON.parse(localStorage.getItem('purchase'));
-    var current = JSON.parse(localStorage.getItem('current'));
-    var storage = JSON.parse(localStorage.getItem('storage-'+language));
+    var storage = JSON.parse(localStorage.getItem('storage'));
 
     if(storage){
-      this.flights = storage.flights;
       this.handleStorageUpdate(storage);
       this.announcement = storage.announcement;
     }
 
-    if(purchase){
-      this.purchase = purchase;
-    }
-
-    if(current){
-      this.current = current;
-    }
-
-    //this.search =  this.search;
-    this.$root.$on('languagechanged',() => this.handleSearchUpdate(this.search));
     this.$root.$on('storagechanged',() => this.handleStorageUpdate(this.storage));
 
-    words.translateAll();
     setTimeout(() => this.handlePassengersUpdate(this.search.passengers), 500);
     setTimeout(() => self.loading = false, 700);    
   },
@@ -359,7 +281,7 @@ export default {
       this.canShowResults = false;
 
       if(search.departure && search.arrival && search.departure === search.arrival){
-        snackbar.show(words.translate('same-departure-arrival-warning'));
+        snackbar.show('same-departure-arrival-warning');
       }
 
       if(this.search['departure-date']){
@@ -376,7 +298,7 @@ export default {
           search.departure != search.arrival &&
           (search.passengers.adults || search.passengers.children || search.passengers.infants)){
         if(search['flight-type'] === 'roundtrip' && !search['return-date']) {
-          snackbar.show(words.translate('search-input-return-date'))
+          snackbar.show('search-input-return-date')
         } else {
           this.canShowResults = true;
         }
@@ -388,7 +310,7 @@ export default {
       for(var i in passengers){
         const qty = passengers[i];
         if(qty){
-          var word = words.translate(i);
+          var word = i;
           word = qty == 1 ? word.replace('res','r').replace('ren','').replace('s','') : word ;
           info.push([qty,word].join(' '));
         }
@@ -397,7 +319,7 @@ export default {
         text = info.join(',');
         text = text.length > 23 ? text.substr(0,23) + '…' : text;
       } else {
-        text = words.translate('search-passengers-placeholder');
+        text = 'search-passengers-placeholder';
       }
       this.search.passengers = passengers;
       this.passengersText = text;

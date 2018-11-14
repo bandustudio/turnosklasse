@@ -17,14 +17,10 @@
 
 <script>
 
-import words from '@/components/Words';
 import helper from '@/components/Helper';
 
 export default {
   name: 'Terms',
-  mounted: function(){
-    words.translateAll();
-  },   
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

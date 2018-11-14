@@ -3,27 +3,27 @@
     <div class="has-background-white">
       <div class="container has-text-left">
         <h2 class="title">
-          <span>Contacto</span>
+          <span jsb-word="terms"></span>
         </h2>
       </div>
-    </div>   
+    </div>
     <div class="hero-body">
-      <div class="container">
-        <h2 class="subtitle">
-          [FORM]
-        </h2>
+      <div class="container has-text-left">
+        <p jsb-word="terms-text"></p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+
 import helper from '@/components/Helper';
+
 export default {
-  name: 'Contact',
+  name: 'Dealers',
   data () {
     return {
-      msg: 'Welcome to JetsBooking'
+      msg: 'Welcome to Your Vue.js App'
     }
   }
 }

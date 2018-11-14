@@ -3,7 +3,7 @@
     <div class="has-background-white">
       <div class="container has-text-left">
         <h2 class="title">
-          <span jsb-word="offers">{{ 'offers' | translate }}</span>
+          <span jsb-word="offers"></span>
         </h2>
       </div>
     </div>   
@@ -11,7 +11,7 @@
       <div class="container offers">
         <div class="columns">
           <div class="column has-text-left">
-            <h1 class="has-text-info" jsb-word="dayly-offers">{{ 'dayly-offers' | translate }}</h1>
+            <h1 class="has-text-info" jsb-word="dayly-offers"></h1>
           </div>
         </div>
         <div class="columns is-multiline">

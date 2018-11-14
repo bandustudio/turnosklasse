@@ -3,12 +3,12 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          <span class="icon has-text-success">
+          <span class="icon has-text-danger">
             <i class="fa fa-bolt"></i>
           </span>
-          <span jsb-word="not-found">{{ 'not-found' | translate }}</span>
+          <span>Página no encontrada</span>
         </h1>
-        <p jsb-word="not-found-text">{{ 'not-found-text' | translate }}</p>
+        <p>No hemos podido localizar la fuente de su solicitud. Si cree que esto es un error por favor contáctenos.</p>
       </div>
     </div>
   </section>

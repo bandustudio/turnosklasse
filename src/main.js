@@ -6,7 +6,6 @@ import axios from 'axios';
 import App from './App'
 import router from './router'
 import helper from '@/components/Helper';
-import words from '@/components/Words'
 import moment from 'moment';
 import vueSlider from 'vue-slider-component'
 //import Datepicker from 'vuejs-datepicker';
@@ -26,17 +25,13 @@ Vue.component('vue-slider', vueSlider);
 
 /* eslint-disable no-new */
 
-Vue.filter('translate', function (value) {
-  return words.translate(value)
-})
-
 new Vue({
 	el: '#app',
 	router,
 	template: '<App/>',
 	components: {App},
 	created: function () {
-		this.$on('languagechanged',() => words.translateAll());
+		
 	},
 	mounted: function(){
 		this.ready = true;
@@ -59,52 +54,13 @@ new Vue({
 	        }).catch(function(error) {
 	          console.log(error)
 	        })
-	    }, 350), 
-	    setLanguage: function(newLanguage){
-	    	var self = this;
-			localStorage.setItem("language",newLanguage);
-		    document.querySelector('.navbar-menu').classList.remove('is-active');
-		    document.querySelector('.navbar-burger').classList.remove('is-active');
-			document.querySelectorAll('.lang-option').forEach((option) => {
-				option.classList.remove('is-active');
-			});
-
-			return new Promise((resolve, reject) => { 
-				var newLocale = localStorage.getItem('storage-'+newLanguage);
-				if(!newLocale){
-					return axios.get(helper.callApi('apiurl') + 'storage-' + newLanguage +'.json').then((res) => {
-					    res.data.lastUpdate = moment().utc().format();
-					    localStorage.setItem('storage-'+newLanguage,JSON.stringify(res.data));
-					    resolve()
-					});
-				} else {
-					resolve()
-				}
-			}).then(() => {
-				document.getElementById('langopt'+newLanguage).classList.add('is-active');
-			    window.scrollTo(0, 0);
-
-			    self.$emit('languagechanged');
-				words.translateAll();
-			})
-	    }
+	    }, 350)
 	},
 	data: function() {
     	return{
     		ready: false,
 		    departures: [],
 		    arrivals: [],    		
-    		languageDefault: "es",
-		    languagesAvailable: [
-		        {
-		            "code":"en",
-		            "title":"English"
-		        },
-		        {
-		            "code":"es",
-		            "title":"Español"
-		        }
-		    ],
 		    local: {
 		        monthsHead: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), // months of head
 		        months: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'), // months of panel

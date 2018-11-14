@@ -3,7 +3,8 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url('https://fonts.googleapis.com/css?family=Asap:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Gochi+Hand:400,700');
 
 // Set your brand colors
 $purple: #8A4D76;
@@ -15,7 +16,7 @@ $light-grey: #EDEDED;
 $dark-blue: #60ABC0;
 
 // Update Bulma's global variables
-$family-sans-serif: "Lato", sans-serif;
+$family-sans-serif: "Asap", sans-serif;
 //$grey-dark: $brown;
 //$grey-light: $beige-light;
 //$primary: $purple;
@@ -30,7 +31,7 @@ $fullhd-enabled: false;
 
 $navbar-height: 3.5rem;
 $navbar-item-img-max-height: 3rem;
-$navbar-background-color: $dark-blue;
+$navbar-background-color: black;
 $navbar-item-color: white;
 $navbar-item-hover-color: $beige-light;
 $navbar-item-active-color: $beige-light;
